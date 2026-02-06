@@ -1,14 +1,243 @@
+/* -------------------
+   Global / Body
+------------------- */
 body {
-  font-family: 'Segoe UI', sans-serif;
-  margin:0; padding:0;
-  display:flex; height:100vh; background: rgba(245,245,245,0.9);
+  margin: 0;
+  padding: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  height: 100vh;
+  display: flex;
+  background: rgba(245,245,245,0.9);
+  color: #111;
+  transition: background 0.3s, color 0.3s;
 }
-header { display:flex; justify-content:space-between; align-items:center; padding:10px; background:#eee; }
-#app { display:flex; width:100%; }
-#sidebar { width:250px; background: rgba(255,255,255,0.2); padding:10px; backdrop-filter: blur(10px);}
-#sidebar input { width:100%; padding:5px; margin-bottom:10px;}
-main { flex:1; padding:10px; display:flex; flex-direction:column;}
-#noteArea { width:100%; height:300px; margin-bottom:10px; padding:10px; border-radius:5px;}
-#noteButtons button { margin-right:5px; padding:8px 12px;}
-.noteCard { padding:5px; margin-bottom:5px; border-radius:5px; cursor:pointer; background: rgba(255,255,255,0.1);}
-.noteCard.selected { background: rgba(0,120,255,0.2);}
+
+body.dark-mode {
+  background: rgba(20,20,20,0.95);
+  color: #eee;
+}
+
+/* -------------------
+   Header
+------------------- */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+body.dark-mode header {
+  background: rgba(30,30,30,0.3);
+  border-color: rgba(255,255,255,0.05);
+}
+
+header h1 {
+  font-size: 24px;
+  margin: 0;
+}
+
+#themeSwitch {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+/* -------------------
+   Layout
+------------------- */
+#app {
+  display: flex;
+  width: 100%;
+  height: calc(100vh - 60px);
+}
+
+/* -------------------
+   Sidebar
+------------------- */
+#sidebar {
+  width: 260px;
+  padding: 15px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  border-right: 1px solid rgba(255,255,255,0.2);
+  display: flex;
+  flex-direction: column;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+body.dark-mode #sidebar {
+  background: rgba(30,30,30,0.25);
+  border-color: rgba(255,255,255,0.05);
+}
+
+#sidebar input {
+  padding: 8px 10px;
+  margin-bottom: 15px;
+  border-radius: 8px;
+  border: none;
+  outline: none;
+  background: rgba(255,255,255,0.2);
+  color: inherit;
+}
+
+body.dark-mode #sidebar input {
+  background: rgba(50,50,50,0.3);
+}
+
+/* Folders & tags list */
+#folders, #tags {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+}
+
+#folders li, #tags li {
+  padding: 6px 10px;
+  margin-bottom: 5px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#folders li:hover, #tags li:hover {
+  background: rgba(0,120,255,0.2);
+}
+
+/* -------------------
+   Main area
+------------------- */
+main {
+  flex: 1;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+}
+
+/* Note area */
+#noteAreaWrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+#noteArea {
+  width: 100%;
+  height: 300px;
+  padding: 15px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  resize: vertical;
+  font-size: 16px;
+  margin-bottom: 10px;
+  color: inherit;
+  transition: background 0.3s, border-color 0.3s;
+}
+
+body.dark-mode #noteArea {
+  background: rgba(40,40,40,0.25);
+  border-color: rgba(255,255,255,0.05);
+}
+
+/* Buttons */
+#noteButtons {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 15px;
+}
+
+#noteButtons button {
+  padding: 8px 14px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: rgba(0,120,255,0.2);
+  color: #fff;
+  font-weight: bold;
+  transition: background 0.2s, transform 0.1s;
+}
+
+#noteButtons button:hover {
+  background: rgba(0,120,255,0.35);
+  transform: scale(1.05);
+}
+
+/* -------------------
+   Notes list
+------------------- */
+#notesList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.noteCard {
+  padding: 12px;
+  width: calc(33% - 10px);
+  min-width: 180px;
+  background: rgba(255,255,255,0.15);
+  backdrop-filter: blur(12px);
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.2);
+  cursor: pointer;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.noteCard:hover {
+  transform: translateY(-3px);
+  background: rgba(0,120,255,0.2);
+}
+
+.noteCard.selected {
+  border: 2px solid rgba(0,120,255,0.5);
+}
+
+.noteCard strong {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.noteCard p {
+  font-size: 14px;
+  margin: 0;
+  color: inherit;
+}
+
+/* Tags inside noteCard */
+.noteCard .noteTags {
+  margin-top: 8px;
+}
+
+.noteCard .tag {
+  display: inline-block;
+  padding: 2px 6px;
+  margin-right: 4px;
+  background: rgba(0,120,255,0.3);
+  border-radius: 4px;
+  font-size: 12px;
+}
+
+/* -------------------
+   Markdown preview
+------------------- */
+#markdownPreview {
+  border: 1px solid rgba(255,255,255,0.2);
+  border-radius: 10px;
+  padding: 12px;
+  height: 200px;
+  overflow-y: auto;
+  margin-top: 10px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(12px);
+  transition: background 0.3s, border-color 0.3s;
+}
+
+body.dark-mode #markdownPreview {
+  background: rgba(50,50,50,0.25);
+  border-color: rgba(255,255,255,0.05);
+}
