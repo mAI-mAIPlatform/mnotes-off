@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<title>mNotes 0.2 📝</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <header>
+    <h1>mNotes 📝</h1>
+    <div id="themeSwitch">🌗</div>
+  </header>
+  <aside id="sidebar">
+    <input type="text" id="searchInput" placeholder="🔍 Rechercher une note...">
+    <ul id="folders"></ul>
+    <ul id="tags"></ul>
+  </aside>
+  <main>
+    <div id="noteAreaWrapper">
+      <textarea id="noteArea" placeholder="Écris ta note ici..."></textarea>
+      <div id="noteButtons">
+        <button id="saveBtn">💾 Sauvegarder</button>
+        <button id="exportBtn">📄 Export PDF/TXT</button>
+        <button id="deleteBtn">🗑️ Supprimer</button>
+      </div>
+    </div>
+    <div id="notesList"></div>
+  </main>
+</div>
+<script src="renderer.js"></script>
+</body>
+</html>
